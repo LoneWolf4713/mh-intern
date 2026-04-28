@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { EaseLogo } from "@/components/ui/EaseLogo"
+import { DeviceImage } from "@/components/ui/DeviceImage"
 import { heroEntranceTimeline } from "@/motion/hero"
 
 export function HeroSection() {
@@ -17,15 +18,16 @@ export function HeroSection() {
 
   return (
     <section
-  ref={sectionRef}
-  className="relative flex min-h-screen w-[80%] flex-col justify-end mx-auto px-8 py-24 pb-36 md:px-12"
->
-  <div className="flex max-w-2xl flex-col items-start text-left">
-    <div className="mb-6 flex flex-row items-start gap-2">
+      ref={sectionRef}
+      className="relative flex min-h-screen w-[80%] flex-col justify-end mx-auto px-8 py-24 pb-36 md:px-12"
+    >
+      <DeviceImage />
+      <div className="relative z-10 flex max-w-2xl flex-col items-start text-left">
+        <div className="mb-6 flex flex-row items-start gap-2">
           <span data-hero="text" className="text-lg md:text-xl font-medium tracking-wide text-white/80">
             • Introducing
           </span>
-          <div data-hero="text" >
+          <div data-hero="text">
             <EaseLogo />
           </div>
         </div>
@@ -39,7 +41,7 @@ export function HeroSection() {
         </p>
       </div>
 
-      <div className="flex w-full flex-wrap items-center justify-between mt-8">
+      <div className="relative z-10 flex w-full flex-wrap items-center justify-between mt-8">
         <div data-hero="btn-group" className="flex flex-wrap gap-4">
           <div className="overflow-hidden pb-4 -mb-4">
             <Button variant="default" className="h-12 rounded-full px-6 text-base font-semibold bg-white text-black hover:bg-white/90">
