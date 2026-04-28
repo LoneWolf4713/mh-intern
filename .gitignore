@@ -1,3 +1,7 @@
 node_modules
 AGENTS.md
 CLAUDE.md
+.next
+.env
+dist
+out
