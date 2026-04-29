@@ -16,7 +16,7 @@ export function SeekDevice() {
           alt="EASE Device"
           width={800}
           height={800}
-          className="object-contain drop-shadow-[0_0_40px_rgba(14,165,233,0.4)]"
+          className="object-contain drop-shadow-[0_0_55px_rgba(14,165,233,0.65)]"
           priority
         />
       </div>
