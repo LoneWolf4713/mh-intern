@@ -26,10 +26,17 @@ export const heroEntranceTimeline = (containerRef: React.RefObject<HTMLElement>)
     filter: "blur(16px)",
   })
 
-  gsap.set([artHand, artDevice], {
+  gsap.set(artHand, {
     y: "80vh",
     opacity: 0,
     rotation: 2,
+  })
+
+  gsap.set(artDevice, {
+    scale: 0.95,
+    opacity: 0,
+    filter: "blur(60px)",
+    y: 0,
   })
 
   tl.to(leftSideTargets, {
@@ -38,7 +45,7 @@ export const heroEntranceTimeline = (containerRef: React.RefObject<HTMLElement>)
     filter: "blur(0px)",
     duration: 1.4,
     ease: "power3.out",
-    stagger: 0.25,
+    stagger: 0.2,
   })
     .to(
       btnStart,
@@ -49,7 +56,7 @@ export const heroEntranceTimeline = (containerRef: React.RefObject<HTMLElement>)
         duration: 1.4,
         ease: "power3.out",
       },
-      "-=0.8"
+      0
     )
     .to(
       artHand,
@@ -60,18 +67,19 @@ export const heroEntranceTimeline = (containerRef: React.RefObject<HTMLElement>)
         duration: 1.5,
         ease: "power3.out",
       },
-      "<"
+      0.4
     )
     .to(
       artDevice,
       {
-        y: "10vh",
+         y: "10vh",
+        scale: 1,
         opacity: 1,
-        rotation: 0,
-        duration: 1.5,
+        filter: "blur(0px)",
+        duration: 2.5,
         ease: "power3.out",
       },
-      "<0.25"
+      "-=0.4"
     )
 
   return tl

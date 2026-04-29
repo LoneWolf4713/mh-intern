@@ -1,17 +1,10 @@
 "use client"
 
-import * as React from "react"
+import { useRef, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { ChevronDown } from "lucide-react"
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu"
+import { gsap } from "@/lib/gsap"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -54,34 +47,117 @@ const results = [
   { title: "Is EASE for Me?", subtext: "" },
 ]
 
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a"> & { title: string; subtext?: string; grayed?: boolean }
->(({ className, title, subtext, grayed, ...props }, ref) => {
+const ListItem = ({ title, subtext, grayed, href = "#" }: { title: string; subtext?: string; grayed?: boolean; href?: string }) => {
   return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-xl p-3 leading-none no-underline outline-none hover:bg-slate-100",
-            grayed && "opacity-50",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-semibold leading-none text-black">{title}</div>
-          {subtext && (
-            <p className="line-clamp-2 text-xs leading-snug text-slate-500">
-              {subtext}
-            </p>
-          )}
-        </a>
-      </NavigationMenuLink>
+    <li className="list-none opacity-0 translate-y-2">
+      <a
+        href={href}
+        className={cn(
+          "block select-none space-y-1 rounded-xl p-3 leading-none no-underline outline-none transition-colors hover:bg-slate-100",
+          grayed && "opacity-50"
+        )}
+      >
+        <div className="text-sm font-semibold leading-none text-black">{title}</div>
+        {subtext && (
+          <p className="line-clamp-2 text-xs leading-snug text-slate-500">
+            {subtext}
+          </p>
+        )}
+      </a>
     </li>
   )
-})
-ListItem.displayName = "ListItem"
+}
+
+const NavDropdown = ({ title, items, columns = 1, width = "w-[500px]" }: { title: string; items: any[]; columns?: number; width?: string }) => {
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const ctx = useRef<gsap.Context | null>(null)
+
+  useEffect(() => {
+    ctx.current = gsap.context(() => {
+      gsap.set(dropdownRef.current, {
+        opacity: 0,
+        y: 15,
+        filter: "blur(12px)",
+        visibility: "hidden",
+      })
+    })
+    return () => ctx.current?.revert()
+  }, [])
+
+  const onEnter = () => {
+    ctx.current?.add(() => {
+      gsap.to(dropdownRef.current, {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        visibility: "visible",
+        duration: 0.6,
+        ease: "power3.out",
+        overwrite: true,
+      })
+      
+      const listItems = dropdownRef.current?.querySelectorAll('li')
+      if (listItems) {
+        gsap.to(listItems, {
+          opacity: 1,
+          y: 0,
+          stagger: 0.05,
+          duration: 0.4,
+          ease: "power2.out",
+          overwrite: true,
+        })
+      }
+    })
+  }
+
+  const onLeave = () => {
+    ctx.current?.add(() => {
+      gsap.to(dropdownRef.current, {
+        opacity: 0,
+        y: 10,
+        filter: "blur(8px)",
+        duration: 0.4,
+        ease: "power2.in",
+        overwrite: true,
+        onComplete: () => {
+          gsap.set(dropdownRef.current, { visibility: "hidden" })
+        }
+      })
+      
+      const listItems = dropdownRef.current?.querySelectorAll('li')
+      if (listItems) {
+        gsap.set(listItems, { opacity: 0, y: 2 })
+      }
+    })
+  }
+
+  return (
+    <div 
+      className="relative flex items-center h-full" 
+      onMouseEnter={onEnter} 
+      onMouseLeave={onLeave}
+    >
+      <button className="group inline-flex h-10 w-max items-center justify-center rounded-2xl bg-transparent px-4 py-2 text-sm font-medium text-black outline-none transition-colors hover:bg-slate-100">
+        {title}
+        <ChevronDown className="relative top-[1px] ml-1 h-3 w-3 transition-transform duration-200 group-hover:rotate-180" />
+      </button>
+
+      <div 
+        ref={dropdownRef}
+        data-nav="dropdown"
+        className="absolute left-1/2 top-full flex -translate-x-1/2 justify-center pt-4 z-50 pointer-events-none group-hover:pointer-events-auto"
+      >
+        <div className={cn("relative mt-1.5 overflow-hidden rounded-2xl bg-white text-black shadow-lg p-4 pointer-events-auto", width)}>
+          <ul className={cn("grid gap-3", columns > 1 ? `grid-cols-${columns}` : "grid-cols-1")}>
+            {items.map((item) => (
+              <ListItem key={item.title} title={item.title} subtext={item.subtext} grayed={item.grayed} />
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export function Navbar() {
   return (
@@ -92,76 +168,19 @@ export function Navbar() {
           <span className="text-lg font-bold text-white font-jakarta">Marbles Health</span>
         </Link>
 
-        <div className="rounded-2xl bg-white px-2 py-1 shadow-sm">
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-black">Conditions</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    {conditions.map((item) => (
-                      <ListItem key={item.title} title={item.title} subtext={item.subtext} href="#" />
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-black">How EASE works</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[450px] md:grid-cols-1 lg:w-[500px]">
-                    {howEaseWorks.map((item) => (
-                      <ListItem key={item.title} title={item.title} subtext={item.subtext} href="#" />
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-black">For Doctors</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[450px] md:grid-cols-1 lg:w-[500px]">
-                    {forDoctors.map((item) => (
-                      <ListItem key={item.title} title={item.title} subtext={item.subtext} href="#" />
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-black">Find a Doctor</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[450px] md:grid-cols-1 lg:w-[500px]">
-                    {findADoctor.map((item) => (
-                      <ListItem key={item.title} title={item.title} subtext={item.subtext} grayed={item.grayed} href="#" />
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-black">Results</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[450px] md:grid-cols-1 lg:w-[500px]">
-                    {results.map((item) => (
-                      <ListItem key={item.title} title={item.title} subtext={item.subtext} href="#" />
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <Link href="/blogs" legacyBehavior passHref>
-                  <NavigationMenuLink className="group inline-flex h-10 w-max items-center justify-center rounded-2xl bg-transparent px-4 py-2 text-sm font-medium text-black outline-none disabled:pointer-events-none disabled:opacity-50">
-                    Blogs
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+        <div className="flex items-center gap-1 rounded-2xl bg-white px-2 py-1 shadow-sm h-12">
+          <NavDropdown title="Conditions" items={conditions} columns={2} width="w-[600px]" />
+          <NavDropdown title="How EASE works" items={howEaseWorks} />
+          <NavDropdown title="For Doctors" items={forDoctors} />
+          <NavDropdown title="Find a Doctor" items={findADoctor} />
+          <NavDropdown title="Results" items={results} />
+          
+          <Link href="/blogs" className="group inline-flex h-10 w-max items-center justify-center rounded-2xl bg-transparent px-4 py-2 text-sm font-medium text-black outline-none transition-colors hover:bg-slate-100">
+            Blogs
+          </Link>
         </div>
 
-        <Button variant="default" className="flex items-center gap-2 rounded-2xl bg-white text-black">
+        <Button variant="default" className="flex items-center gap-2 rounded-2xl bg-white text-black hover:bg-white/90">
           Book a Demo
           <ChevronDown className="h-4 w-4" />
         </Button>
