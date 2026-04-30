@@ -1,21 +1,18 @@
 import { useEffect } from "react"
-import { gsap } from "@/lib/gsap"
+import { animate } from "framer-motion"
 
 export default function useFloatAnimation(ref: React.RefObject<HTMLElement>) {
   useEffect(() => {
     if (!ref.current) return
 
-    const tween = gsap.to(ref.current, {
-      y: -15,
-      x: -12,
-      duration: 4,
-      ease: "sine.inOut",
-      yoyo: true,
-      repeat: -1,
-    })
+    const controls = animate(
+      ref.current,
+      { y: [-15, 0], x: [-12, 0] },
+      { duration: 4, ease: "easeInOut", repeat: Infinity, repeatType: "mirror" }
+    )
 
     return () => {
-      tween.kill()
+      controls.stop()
     }
   }, [ref])
 }

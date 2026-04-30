@@ -11,7 +11,7 @@ export function DeviceImage() {
   return (
     <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
       <div className="absolute bottom-0 right-0 w-full md:w-1/2 h-full flex flex-col justify-end items-center">
-        <div data-hero="art-device" className="relative z-10 -mb-20">
+        <div className="hero-art-device relative z-10 -mb-20">
           <div ref={floatRef}>
             <Image
               src="/assets/images/hero/ease.png"
@@ -23,15 +23,17 @@ export function DeviceImage() {
             />
           </div>
         </div>
-        <div data-hero="art-hand" className="relative z-0 scale-[3] translate-y-[70%] origin-bottom">
-          <Image
-            src="/assets/images/hero/hand.png"
-            alt="Hand"
-            width={1200}
-            height={1200}
-            className="w-auto h-auto max-w-full object-contain"
-            priority
-          />
+        <div className="hero-art-hand relative z-0 origin-bottom">
+          <div className="scale-[3] translate-y-[70%]">
+            <Image
+              src="/assets/images/hero/hand.png"
+              alt="Hand"
+              width={1200}
+              height={1200}
+              className="w-auto h-auto max-w-full object-contain"
+              priority
+            />
+          </div>
         </div>
       </div>
     </div>

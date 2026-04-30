@@ -46,8 +46,10 @@
 │   └── utils.ts
 ├── motion
 │   ├── carousel.ts
+│   ├── conditions.ts
 │   ├── deviceStory.ts
 │   ├── hero.ts
+│   ├── navbar.ts
 │   ├── seek.ts
 │   ├── statement.ts
 │   └── textReveal.ts
@@ -64,4 +66,4 @@
 ├── temp.txt
 └── tsconfig.json
 
-1173 directories, 2763 files
+1173 directories, 2765 files

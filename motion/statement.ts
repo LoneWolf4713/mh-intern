@@ -1,37 +1,14 @@
-import { gsap } from "@/lib/gsap"
+import type { Variants } from "framer-motion"
 
-export const statementTimeline = (containerRef: React.RefObject<HTMLElement>) => {
-  if (!containerRef.current) return null
-
-  const container = containerRef.current
-  const words = container.querySelectorAll('[data-statement="word"]')
-  const glows = container.querySelectorAll('[data-statement="glow"]')
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: container,
-      start: "top 75%",
-      end: "bottom 75%",
-      scrub: 1,
-    },
-  })
-
-  tl.to(words, {
+export const statementEntrance: Variants = {
+  hidden: { opacity: 0, scale: 0.85, filter: "blur(24px)" },
+  visible: {
     opacity: 1,
-    duration: 1,
-    stagger: 0.1,
-    ease: "none",
-  }).to(
-    glows,
-    {
-      backgroundColor: "rgba(34, 211, 238, 0.4)",
-      scale: 1.2,
-      duration: 1,
-      stagger: 0.2,
-      ease: "power2.out",
+    scale: 1,
+    filter: "blur(0px)",
+    transition: {
+      duration: 1.5,
+      ease: [0.34, 1.2, 0.64, 1],
     },
-    "<0.5"
-  )
-
-  return tl
+  },
 }
