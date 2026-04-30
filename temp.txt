@@ -1,0 +1,67 @@
+.
+├── AGENTS.md
+├── CLAUDE.md
+├── README.md
+├── app
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── components
+│   ├── animata
+│   │   └── text
+│   ├── layout
+│   │   ├── Navbar.tsx
+│   │   └── SmoothScroll.tsx
+│   ├── sections
+│   │   ├── CarouselSection.tsx
+│   │   ├── ConditionsSection.tsx
+│   │   ├── HeroSection.tsx
+│   │   ├── SeekSection.tsx
+│   │   ├── StatementSection.tsx
+│   │   └── TextRevealSection.tsx
+│   └── ui
+│       ├── ConditionCard.tsx
+│       ├── DeviceImage.tsx
+│       ├── EaseLogo.tsx
+│       ├── FlipWords.tsx
+│       ├── SeekBar.tsx
+│       ├── SeekDevice.tsx
+│       ├── TextBubble.tsx
+│       ├── button.tsx
+│       ├── navigation-menu.tsx
+│       └── slider.tsx
+├── components.json
+├── eslint.config.mjs
+├── hooks
+│   ├── useCarousel.ts
+│   ├── useFloatAnimation.ts
+│   ├── useRipple.ts
+│   └── useSeekProgress.ts
+├── lib
+│   ├── animate.ts
+│   ├── fonts.ts
+│   ├── gsap.ts
+│   ├── tokens.ts
+│   └── utils.ts
+├── motion
+│   ├── carousel.ts
+│   ├── deviceStory.ts
+│   ├── hero.ts
+│   ├── seek.ts
+│   ├── statement.ts
+│   └── textReveal.ts
+├── next-env.d.ts
+├── next.config.ts
+├
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── public
+│   └── assets
+│       ├── images
+│       └── logo.svg
+├── temp.txt
+└── tsconfig.json
+
+1173 directories, 2763 files

@@ -30,8 +30,9 @@ export const seekTimeline = (containerRef: React.RefObject<HTMLElement>) => {
     duration: 1.2, 
     ease: "expo.out" 
   })
-  .to(container.querySelector('[data-seek="device"]'), { 
-    scale: 1, 
+  .to(container.querySelector('[data-seek="device"]'), {
+      
+    scale: 0.9, 
     opacity: 1, 
     filter: "blur(0px)", 
     duration: 1.5, 
@@ -62,8 +63,16 @@ export const seekTimeline = (containerRef: React.RefObject<HTMLElement>) => {
     duration: 0.8 
   }, "startSeek+=1.5")
   .add("midpoint")
+  .to(container.querySelector('[data-seek="icon-wrap-activity"]'), { 
+    backgroundColor: "#FCE5FF", 
+    duration: 0.4 
+  }, "midpoint")
+  .to(container.querySelector('[data-seek="icon-activity"]'), { 
+    color: "#B434C4", 
+    duration: 0.4 
+  }, "midpoint")
   .to(container.querySelector('[data-seek="pill-eeg"]'), { 
-    backgroundColor: "#ec4899", 
+    background: "linear-gradient(to right, #180110 30%, #B72E87 70%)", 
     color: "#fff", 
     duration: 0.4 
   }, "midpoint")
@@ -88,11 +97,20 @@ export const seekTimeline = (containerRef: React.RefObject<HTMLElement>) => {
     opacity: 1, 
     duration: 0.8 
   }, "startTrack2+=1.5")
+  .add("endpoint")
+  .to(container.querySelector('[data-seek="icon-wrap-gamepad"]'), { 
+    backgroundColor: "#DBFFD2", 
+    duration: 0.4 
+  }, "endpoint")
+  .to(container.querySelector('[data-seek="icon-gamepad"]'), { 
+    color: "#67CF4D", 
+    duration: 0.4 
+  }, "endpoint")
   .to(container.querySelector('[data-seek="pill-cet"]'), { 
-    backgroundColor: "#22c55e", 
+    background: "linear-gradient(to right, #01180A 30%, #21A454 70%)", 
     color: "#fff", 
     duration: 0.4 
-  })
+  }, "endpoint")
 
   return tl
 }

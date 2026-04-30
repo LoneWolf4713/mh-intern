@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { jakarta } from "@/lib/fonts"
+import { jakarta, oswald } from "@/lib/fonts"
 import { SmoothScroll } from "@/components/layout/SmoothScroll"
 import "./globals.css"
 
@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${jakarta.variable} h-full antialiased`}>
+    <html lang="en" className={`${jakarta.variable} ${oswald.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-jakarta">
         <SmoothScroll>
           {children}

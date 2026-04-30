@@ -63,7 +63,7 @@ export function StatementSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative h-[500vh] w-full bg-[#024379]">
+    <section ref={sectionRef} className="relative h-[500vh] w-full bg-gradient-to-b from-[#024379] from-0% via-[#024379] via-55% via-[#023f72] via-72% via-[#023a66] via-86% to-[#012f52] to-100%">
       <div ref={stickyContainerRef} className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden">
         <div ref={textWrapperRef} className="flex flex-col items-center justify-center text-center text-3xl md:text-4xl max-w-5xl leading-[1.1] font-medium tracking-tight gap-y-3 px-6">
           {lines.map((line, lineIndex) => (

@@ -66,7 +66,7 @@ export function ConditionsSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen w-full bg-[#024379] flex flex-col items-center pt-32 md:pt-48 overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-screen w-full  flex flex-col items-center pt-32 md:pt-48 overflow-hidden bg-gradient-to-b from-[#012f52] from-0% via-[#01365f] via-45% via-[#014070] via-75% to-[#024379] to-100%">
       <div className="flex flex-col items-center z-10 w-full px-6">
         <div className="flex items-center justify-center gap-x-3 md:gap-x-5">
           <div className="h-10 md:h-14 flex items-center justify-center">
