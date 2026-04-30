@@ -7,8 +7,8 @@ export const statementEntrance: Variants = {
     scale: 1,
     filter: "blur(0px)",
     transition: {
-      duration: 1.5,
-      ease: [0.34, 1.2, 0.64, 1],
+      duration: 0.7,
+      ease: "easeOut",
     },
   },
 }

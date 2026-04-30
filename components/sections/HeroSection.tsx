@@ -5,11 +5,17 @@ import { useAnimate, useInView } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { EaseLogo } from "@/components/ui/EaseLogo"
 import { DeviceImage } from "@/components/ui/DeviceImage"
+import { TextShimmer } from "@/components/motion-primitives/text-shimmer"
 import { heroSequence } from "@/motion/hero"
 
 export function HeroSection() {
   const [scope, animate] = useAnimate()
   const isInView = useInView(scope, { once: true })
+
+  const scrollToSeek = () => {
+    const element = document.getElementById("seek-section")
+    element?.scrollIntoView({ behavior: "smooth" })
+  }
 
   useEffect(() => {
     if (isInView) {
@@ -24,18 +30,28 @@ export function HeroSection() {
     >
       <DeviceImage />
       <div className="relative z-10 flex max-w-2xl flex-col items-start text-left">
-        <div className="mb-6 flex flex-row items-start gap-2">
-          <span className="hero-text text-lg md:text-xl font-medium tracking-wide text-white/80">
+        <div className="mb-6 flex flex-row items-center gap-x-2">
+          <span className="hero-text text-lg md:text-xl font-medium tracking-wide text-white/80 leading-none">
             • Introducing
           </span>
-          <div className="hero-text">
+          <div className="hero-text relative -translate-y-[1px]">
             <EaseLogo />
           </div>
         </div>
-
-        <h1 className="hero-text mb-6 text-4xl font-bold leading-[1.1] text-white md:text-5xl lg:text-[64px]">
-          Breakthrough Neuro Psychiatry Care
-        </h1>
+<h1 className="hero-text mb-6 text-4xl font-bold leading-[1.1] text-white md:text-5xl lg:text-[64px]">
+  Breakthrough{" "}
+  <TextShimmer 
+    as="span" 
+    style={{ 
+      "--base-color": "#90cdf4", 
+      "--base-gradient-color": "#ffffff" 
+    } as React.CSSProperties} 
+    className="inline-flex leading-[1.5]"
+  >
+    Neuro Psychiatry
+  </TextShimmer>{" "}
+  Care
+</h1>
 
         <p className="hero-text mb-10 text-lg text-white/60 md:text-xl">
           With or Without Medication
@@ -60,6 +76,7 @@ export function HeroSection() {
           <Button
             variant="default"
             className="hero-btn-start h-12 rounded-full px-6 text-base font-semibold bg-white text-black shadow-2xl hover:bg-white/90"
+            onClick={scrollToSeek}
           >
             Start experience
           </Button>

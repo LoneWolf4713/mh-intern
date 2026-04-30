@@ -1,9 +1,10 @@
 "use client"
 
 import { useEffect } from "react"
-import { useAnimate, useInView } from "framer-motion"
+import { motion, useAnimate, useInView } from "framer-motion"
 import { EaseLogo } from "@/components/ui/EaseLogo"
 import { ConditionCard } from "@/components/ui/ConditionCard"
+import { WordRotate } from "@/components/ui/word-rotate"
 import { conditionsSequence } from "@/motion/conditions"
 
 const conditions = [
@@ -31,15 +32,18 @@ export function ConditionsSection() {
       <div className="w-[80%] mx-auto flex flex-col items-center relative h-full">
         <div className="flex flex-col items-center z-10 w-full px-6">
           <div className="overflow-hidden">
-            <div className="conditions-heading flex items-center justify-center gap-x-3 md:gap-x-5 text-4xl md:text-5xl lg:text-7xl font-medium tracking-tight text-white">
+            <motion.div layout className="conditions-heading flex items-center justify-center gap-x-3 md:gap-x-5 text-4xl md:text-5xl lg:text-7xl font-medium tracking-tight text-white">
               <div className="flex items-center justify-center text-[0.75em]">
                 <EaseLogo />
               </div>
               <span>is for</span>
-              <div className="relative flex items-center h-[1.2em] ml-3 overflow-visible">
-                <span className="conditions-flip-word whitespace-nowrap">Everyone</span>
+              <div className="relative flex items-center ml-3 overflow-visible">
+                <WordRotate 
+                  words={["Everyone", "Depression", "ADHD", "Chronic Pain", "Addiction", "Anxiety"]} 
+                  className="inline-block text-white" 
+                />
               </div>
-            </div>
+            </motion.div>
           </div>
           <div className="overflow-hidden mt-4">
             <p className="conditions-subheading text-xl md:text-3xl text-white/80 font-light text-center">

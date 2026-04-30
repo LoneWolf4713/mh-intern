@@ -6,7 +6,7 @@ import { ConditionsSection } from "@/components/sections/ConditionsSection"
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen w-full overflow-x-hidden">
+    <main className="relative min-h-screen w-full">
       <Navbar />
       <HeroSection />
       <SeekSection />
