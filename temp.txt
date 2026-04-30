@@ -1,0 +1,64 @@
+.
+├── README.md
+├── app
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── components
+│   ├── layout
+│   │   ├── Navbar.tsx
+│   │   └── SmoothScroll.tsx
+│   ├── motion-primitives
+│   │   ├── text-roll.tsx
+│   │   └── text-shimmer.tsx
+│   ├── sections
+│   │   ├── ConditionsSection.tsx
+│   │   ├── HeroSection.tsx
+│   │   ├── SeekSection.tsx
+│   │   └── StatementSection.tsx
+│   └── ui
+│       ├── ConditionCard.tsx
+│       ├── CustomCursor.tsx
+│       ├── DeviceImage.tsx
+│       ├── EaseLogo.tsx
+│       ├── SeekBar.tsx
+│       ├── SeekDevice.tsx
+│       ├── TextBubble.tsx
+│       ├── animated-shiny-text.tsx
+│       ├── button.tsx
+│       ├── container-text-flip.tsx
+│       ├── navigation-menu.tsx
+│       ├── slider.tsx
+│       └── word-rotate.tsx
+├── components.json
+├── eslint.config.mjs
+├── hooks
+│   └── useFloatAnimation.ts
+├── lib
+│   ├── animate.ts
+│   ├── fonts.ts
+│   ├── gsap.ts
+│   ├── tokens.ts
+│   └── utils.ts
+├── motion
+│   ├── conditions.ts
+│   ├── hero.ts
+│   ├── navbar.ts
+│   ├── seek.ts
+│   └── statement.ts
+├── next-env.d.ts
+├── next.config.ts
+├── node_modules
+│ 
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── public
+│   └── assets
+│       ├── images
+│       └── logo.svg
+├── temp.txt
+└── tsconfig.json
+
+1178 directories, 2763 files
