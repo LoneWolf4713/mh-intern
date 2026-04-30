@@ -23,7 +23,7 @@ export function ConditionsSection() {
 
   useEffect(() => {
     if (isInView) {
-      animate(conditionsSequence)
+      animate(conditionsSequence as any)
     }
   }, [isInView, animate])
 

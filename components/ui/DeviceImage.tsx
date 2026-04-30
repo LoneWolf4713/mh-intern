@@ -6,7 +6,7 @@ import useFloatAnimation from "@/hooks/useFloatAnimation"
 
 export function DeviceImage() {
   const floatRef = useRef<HTMLDivElement>(null)
-  useFloatAnimation(floatRef)
+  useFloatAnimation(floatRef as any)
 
   return (
     <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">

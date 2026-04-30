@@ -15,12 +15,12 @@ export function SeekSection() {
   const leftTextRef = useRef<HTMLDivElement>(null)
   const rightTextRef = useRef<HTMLDivElement>(null)
 
-  useFloatAnimation(leftTextRef)
-  useFloatAnimation(rightTextRef)
+  useFloatAnimation(leftTextRef as any)
+  useFloatAnimation(rightTextRef as any)
 
   useEffect(() => {
     if (isInView) {
-      animate(seekSequence)
+      animate(seekSequence as any)
     }
   }, [isInView, animate])
 

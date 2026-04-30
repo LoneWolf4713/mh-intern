@@ -69,7 +69,7 @@ const ListItem = ({ title, subtext, grayed, href = "#" }: { title: string; subte
 }
 
 const NavDropdown = ({ title, items, columns = 1, width = "w-[500px]" }: { title: string; items: any[]; columns?: number; width?: string }) => {
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null!)
   const { init, enter, leave } = setupDropdownMotion(dropdownRef)
 
   useEffect(() => {

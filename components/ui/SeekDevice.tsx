@@ -6,7 +6,7 @@ import useFloatAnimation from "@/hooks/useFloatAnimation"
 
 export function SeekDevice() {
   const floatRef = useRef<HTMLDivElement>(null)
-  useFloatAnimation(floatRef)
+  useFloatAnimation(floatRef as any)
 
   return (
     <div className="relative flex w-full max-w-3xl items-center justify-center z-10">

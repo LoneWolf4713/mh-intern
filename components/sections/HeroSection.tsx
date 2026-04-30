@@ -19,7 +19,7 @@ export function HeroSection() {
 
   useEffect(() => {
     if (isInView) {
-      animate(heroSequence)
+      animate(heroSequence as any)
     }
   }, [isInView, animate])
 
