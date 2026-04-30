@@ -4,9 +4,9 @@ import { useRef, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { ChevronDown } from "lucide-react"
-import { gsap } from "@/lib/gsap"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { setupDropdownMotion } from "@/motion/navbar"
 
 const conditions = [
   { title: "Depression", subtext: "63.8% symptoms reduction" },
@@ -53,7 +53,7 @@ const ListItem = ({ title, subtext, grayed, href = "#" }: { title: string; subte
       <a
         href={href}
         className={cn(
-          "block select-none space-y-1 rounded-xl p-3 leading-none no-underline outline-none transition-colors hover:bg-slate-100",
+          "block select-none space-y-1 rounded-xl p-3 leading-none no-underline outline-none transition-colors hover:bg-slate-50",
           grayed && "opacity-50"
         )}
       >
@@ -70,84 +70,29 @@ const ListItem = ({ title, subtext, grayed, href = "#" }: { title: string; subte
 
 const NavDropdown = ({ title, items, columns = 1, width = "w-[500px]" }: { title: string; items: any[]; columns?: number; width?: string }) => {
   const dropdownRef = useRef<HTMLDivElement>(null)
-  const ctx = useRef<gsap.Context | null>(null)
+  const { init, enter, leave } = setupDropdownMotion(dropdownRef)
 
   useEffect(() => {
-    ctx.current = gsap.context(() => {
-      gsap.set(dropdownRef.current, {
-        opacity: 0,
-        y: 15,
-        filter: "blur(12px)",
-        visibility: "hidden",
-      })
-    })
-    return () => ctx.current?.revert()
+    init()
   }, [])
-
-  const onEnter = () => {
-    ctx.current?.add(() => {
-      gsap.to(dropdownRef.current, {
-        opacity: 1,
-        y: 0,
-        filter: "blur(0px)",
-        visibility: "visible",
-        duration: 0.6,
-        ease: "power3.out",
-        overwrite: true,
-      })
-      
-      const listItems = dropdownRef.current?.querySelectorAll('li')
-      if (listItems) {
-        gsap.to(listItems, {
-          opacity: 1,
-          y: 0,
-          stagger: 0.05,
-          duration: 0.4,
-          ease: "power2.out",
-          overwrite: true,
-        })
-      }
-    })
-  }
-
-  const onLeave = () => {
-    ctx.current?.add(() => {
-      gsap.to(dropdownRef.current, {
-        opacity: 0,
-        y: 10,
-        filter: "blur(8px)",
-        duration: 0.4,
-        ease: "power2.in",
-        overwrite: true,
-        onComplete: () => {
-          gsap.set(dropdownRef.current, { visibility: "hidden" })
-        }
-      })
-      
-      const listItems = dropdownRef.current?.querySelectorAll('li')
-      if (listItems) {
-        gsap.set(listItems, { opacity: 0, y: 2 })
-      }
-    })
-  }
 
   return (
     <div 
       className="relative flex items-center h-full" 
-      onMouseEnter={onEnter} 
-      onMouseLeave={onLeave}
+      onMouseEnter={enter} 
+      onMouseLeave={leave}
     >
-      <button className="group inline-flex h-10 w-max items-center justify-center rounded-2xl bg-transparent px-4 py-2 text-sm font-medium text-black outline-none transition-colors hover:bg-slate-100">
+      <button className="inline-flex h-10 w-max items-center justify-center rounded-2xl bg-transparent px-4 py-2 text-sm font-medium text-black outline-none transition-colors hover:bg-slate-100">
         {title}
-        <ChevronDown className="relative top-[1px] ml-1 h-3 w-3 transition-transform duration-200 group-hover:rotate-180" />
+        <ChevronDown className="relative top-[1px] ml-1 h-3 w-3" />
       </button>
 
       <div 
         ref={dropdownRef}
         data-nav="dropdown"
-        className="absolute left-1/2 top-full flex -translate-x-1/2 justify-center pt-4 z-50 pointer-events-none group-hover:pointer-events-auto"
+        className="absolute left-1/2 top-full flex -translate-x-1/2 justify-center pt-4 z-50 pointer-events-none"
       >
-        <div className={cn("relative mt-1.5 overflow-hidden rounded-2xl bg-white text-black shadow-lg p-4 pointer-events-auto", width)}>
+        <div className={cn("relative mt-1.5 overflow-hidden rounded-2xl bg-white text-black shadow-lg p-2 border border-slate-100", width)}>
           <ul className={cn("grid gap-3", columns > 1 ? `grid-cols-${columns}` : "grid-cols-1")}>
             {items.map((item) => (
               <ListItem key={item.title} title={item.title} subtext={item.subtext} grayed={item.grayed} />
@@ -168,19 +113,19 @@ export function Navbar() {
           <span className="text-lg font-bold text-white font-jakarta">Marbles Health</span>
         </Link>
 
-        <div className="flex items-center gap-1 rounded-2xl bg-white px-2 py-1 shadow-sm h-12">
-          <NavDropdown title="Conditions" items={conditions} columns={2} width="w-[600px]" />
-          <NavDropdown title="How EASE works" items={howEaseWorks} />
-          <NavDropdown title="For Doctors" items={forDoctors} />
-          <NavDropdown title="Find a Doctor" items={findADoctor} />
-          <NavDropdown title="Results" items={results} />
+        <div className="flex items-center gap-1 rounded-md bg-white px-2 py-1 shadow-sm h-12">
+          <NavDropdown title="Conditions" items={conditions} columns={2} width="w-[480px]" />
+          <NavDropdown title="How EASE works" items={howEaseWorks} width="w-[300px]" />
+          <NavDropdown title="For Doctors" items={forDoctors} width="w-[280px]" />
+          <NavDropdown title="Find a Doctor" items={findADoctor} width="w-[200px]" />
+          <NavDropdown title="Results" items={results} width="w-[280px]" />
           
           <Link href="/blogs" className="group inline-flex h-10 w-max items-center justify-center rounded-2xl bg-transparent px-4 py-2 text-sm font-medium text-black outline-none transition-colors hover:bg-slate-100">
             Blogs
           </Link>
         </div>
 
-        <Button variant="default" className="flex items-center gap-2 rounded-2xl bg-white text-black hover:bg-white/90">
+        <Button variant="default" className="flex items-center gap-2 rounded-md bg-white text-black hover:bg-white/90">
           Book a Demo
           <ChevronDown className="h-4 w-4" />
         </Button>

@@ -28,13 +28,11 @@ export function ConditionsSection() {
     <section ref={sectionRef} className="relative min-h-screen w-full flex flex-col items-center pt-32 md:pt-48 overflow-hidden bg-gradient-to-b from-[#012f52] from-0% via-[#01365f] via-45% via-[#014070] via-75% to-[#024379] to-100%">
       <div className="flex flex-col items-center z-10 w-full px-6">
         <div className="overflow-hidden">
-          <div data-conditions="heading-reveal" className="flex items-center justify-center gap-x-3 md:gap-x-5">
-            <div className="text-[inherit] flex items-center justify-center">
+          <div data-conditions="heading-reveal" className="flex items-center justify-center gap-x-3 md:gap-x-5 text-4xl md:text-5xl lg:text-7xl font-medium tracking-tight text-white">
+            <div className="flex items-center justify-center">
               <EaseLogo />
             </div>
-            <span className="text-4xl md:text-5xl lg:text-7xl font-medium tracking-tight text-white">
-              is for Everyone
-            </span>
+            <span>is for Everyone</span>
           </div>
         </div>
         <div className="overflow-hidden mt-4">
